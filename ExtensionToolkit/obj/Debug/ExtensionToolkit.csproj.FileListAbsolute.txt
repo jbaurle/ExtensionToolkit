@@ -1,0 +1,10 @@
+C:\ExtensionToolkit\ExtensionToolkit\obj\Debug\ResolveAssemblyReference.cache
+C:\ExtensionToolkit\ExtensionToolkit\bin\Debug\ExtensionToolkit.dll
+C:\ExtensionToolkit\ExtensionToolkit\bin\Debug\ExtensionToolkit.pdb
+C:\ExtensionToolkit\ExtensionToolkit\obj\Debug\ExtensionToolkit.dll
+C:\ExtensionToolkit\ExtensionToolkit\obj\Debug\ExtensionToolkit.pdb
+C:\CodePlex\ExtensionToolkit\ExtensionToolkit\bin\Debug\ExtensionToolkit.dll
+C:\CodePlex\ExtensionToolkit\ExtensionToolkit\bin\Debug\ExtensionToolkit.pdb
+C:\CodePlex\ExtensionToolkit\ExtensionToolkit\obj\Debug\ResolveAssemblyReference.cache
+C:\CodePlex\ExtensionToolkit\ExtensionToolkit\obj\Debug\ExtensionToolkit.dll
+C:\CodePlex\ExtensionToolkit\ExtensionToolkit\obj\Debug\ExtensionToolkit.pdb
