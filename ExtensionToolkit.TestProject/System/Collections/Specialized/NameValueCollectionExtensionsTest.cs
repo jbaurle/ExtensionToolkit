@@ -20,5 +20,17 @@ namespace ExtensionToolkit.TestProject
 			Assert.AreEqual(true, c.ContainsKey("xyz"));
 			Assert.AreEqual(false, c.ContainsKey("BCZ"));
 		}
+
+		[TestMethod()]
+		public void ToXmlTest()
+		{
+			NameValueCollection c = new NameValueCollection();
+			c.Add("Host", "codeplex.com");
+			c.Add("Port", "80");
+			string xml = c.ToXml("Server");
+			Assert.AreEqual(true, xml.StartsWith("<Server"));
+			xml = c.ToXml("Server", new { Active = "true" });
+			Assert.AreEqual(true, xml.StartsWith("<Server"));
+		}
 	}
 }
