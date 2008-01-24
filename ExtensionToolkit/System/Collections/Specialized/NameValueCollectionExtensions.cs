@@ -1,4 +1,7 @@
 ﻿using System;
+using System.ComponentModel;
+using System.IO;
+using System.Xml;
 
 namespace System.Collections.Specialized
 {
@@ -26,6 +29,44 @@ namespace System.Collections.Specialized
 			}
 
 			return false;
+		}
+
+		/// <summary>
+		/// Creates a XML encoding of the collection object and its current state with
+		/// a given root name.
+		/// </summary>
+		public static string ToXml(this NameValueCollection collection, string name)
+		{
+			return ToXml(collection, name, null);
+		}
+
+		/// <summary>
+		/// Creates a XML encoding of the collection object and its current state with
+		/// a given root name and attributes.
+		/// </summary>
+		public static string ToXml(this NameValueCollection collection, string name, object attributes)
+		{
+			if(string.IsNullOrEmpty(name))
+				throw new ArgumentNullException("name");
+
+			StringWriter sw = new StringWriter();
+			XmlTextWriter w = new XmlTextWriter(sw);
+
+			w.Formatting = Formatting.Indented;
+
+			w.WriteStartElement(name);
+
+			PropertyDescriptorCollection properties = TypeDescriptor.GetProperties(attributes);
+
+			foreach(PropertyDescriptor pd in properties)
+				w.WriteAttributeString(pd.Name, pd.GetValue(attributes).ToString());
+
+			foreach(string key in collection.AllKeys)
+				w.WriteElementString(key, collection[key]);
+
+			w.WriteEndElement();
+
+			return sw.ToString();
 		}
 	}
 }
