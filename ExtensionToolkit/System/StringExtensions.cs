@@ -10,7 +10,6 @@ namespace System
 	{
 		// TODO:
 		//  - Add the following methods: 
-		//     -> IsEmailaddress
 		//     -> IsStrongPassword (http://regexlib.com/REDetails.aspx?regexp_id=2062)
 		//     -> ToList, ToNameValueCollection, ToDictionary
 		//     -> ...
@@ -49,6 +48,14 @@ namespace System
 				throw new ArgumentNullException("defaultValue");
 
 			return string.IsNullOrEmpty(s) ? s : defaultValue;
+		}
+
+		/// <summary>
+		/// Indicates whether the current string object is a valid emailaddresss.
+		/// </summary>
+		public static bool IsEmailAddress(this string s)
+		{
+			return (new Regex(@"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$")).IsMatch(s);
 		}
 
 		/// <summary>
