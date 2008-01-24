@@ -11,7 +11,8 @@ namespace System
 		// TODO:
 		//  - Add the following methods: 
 		//     -> IsEmailaddress
-		//     -> IsStrongPasswrd (http://regexlib.com/REDetails.aspx?regexp_id=2062)
+		//     -> IsStrongPassword (http://regexlib.com/REDetails.aspx?regexp_id=2062)
+		//     -> ToList, ToNameValueCollection, ToDictionary
 		//     -> ...
 
 		/// <summary>
