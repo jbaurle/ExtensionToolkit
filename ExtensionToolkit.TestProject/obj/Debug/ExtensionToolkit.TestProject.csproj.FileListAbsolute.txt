@@ -1,0 +1,7 @@
+C:\CodePlex\ExtensionToolkit\ExtensionToolkit.TestProject\bin\Debug\ExtensionToolkit.TestProject.dll
+C:\CodePlex\ExtensionToolkit\ExtensionToolkit.TestProject\bin\Debug\ExtensionToolkit.TestProject.pdb
+C:\CodePlex\ExtensionToolkit\ExtensionToolkit.TestProject\bin\Debug\ExtensionToolkit.dll
+C:\CodePlex\ExtensionToolkit\ExtensionToolkit.TestProject\bin\Debug\ExtensionToolkit.pdb
+C:\CodePlex\ExtensionToolkit\ExtensionToolkit.TestProject\obj\Debug\ResolveAssemblyReference.cache
+C:\CodePlex\ExtensionToolkit\ExtensionToolkit.TestProject\obj\Debug\ExtensionToolkit.TestProject.dll
+C:\CodePlex\ExtensionToolkit\ExtensionToolkit.TestProject\obj\Debug\ExtensionToolkit.TestProject.pdb
