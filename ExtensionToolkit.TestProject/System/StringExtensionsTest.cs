@@ -56,6 +56,14 @@ namespace ExtensionToolkit.TestProject
 		}
 
 		[TestMethod()]
+		public void IsEmailAddressTest()
+		{
+			Assert.AreEqual(true, "billy@micisoft.de".IsEmailAddress());
+			Assert.AreEqual(false, "billy@micisoft".IsEmailAddress());
+			Assert.AreEqual(false, "billy micisoft.de".IsEmailAddress());
+		}
+
+		[TestMethod()]
 		public void IsInTest()
 		{
 			string l = " abc   , ABC ; XYZ";

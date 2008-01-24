@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Reflection;
 
 namespace System
@@ -20,6 +21,20 @@ namespace System
 			object[] attributes = o.GetType().GetCustomAttributes(attributeToFind, true);
 
 			return (attributes != null && attributes.Length > 0);
+		}
+
+		/// <summary>
+		/// Indicates whether the specified list contains the current object instance.
+		/// </summary>
+		public static bool IsIn(this object o, IEnumerable list)
+		{
+			foreach(object i in list)
+			{
+				if(i.Equals(o))
+					return true;
+			}
+
+			return false;
 		}
 	}
 }
