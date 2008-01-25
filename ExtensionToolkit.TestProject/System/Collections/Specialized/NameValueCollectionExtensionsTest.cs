@@ -22,6 +22,19 @@ namespace ExtensionToolkit.TestProject
 		}
 
 		[TestMethod()]
+		public void JoinTest()
+		{
+			NameValueCollection c = new NameValueCollection();
+			c.Add("ABC", "ABC-val");
+			c.Add("XYZ", "XYZ-val");
+			c.Add("XSA", null);
+			c.Add("SSA", "");
+			c.Add("MIT", "MIT-val");
+			Assert.AreEqual(true, c.Join().StartsWith("ABC=ABC-val|"));
+			Assert.AreEqual(true, c.Join("#").StartsWith("ABC=ABC-val#"));
+		}
+
+		[TestMethod()]
 		public void ToXmlTest()
 		{
 			NameValueCollection c = new NameValueCollection();
