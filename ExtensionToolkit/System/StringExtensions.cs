@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -52,46 +53,6 @@ namespace System
 				throw new ArgumentNullException("defaultValue");
 
 			return string.IsNullOrEmpty(s) ? s : defaultValue;
-		}
-
-		/// <summary>
-		/// Returns the current string with leading spaces.
-		/// </summary>
-		public static string Indent(this string s, int count)
-		{
-			return Indent(s, count, " ");
-		}
-
-		/// <summary>
-		/// Returns the current string with the leading indentation string.
-		/// </summary>
-		public static string Indent(this string s, int count, string indentationString)
-		{
-			if(string.IsNullOrEmpty(indentationString))
-				throw new ArgumentNullException("indentationString");
-
-			StringBuilder sb = new StringBuilder();
-			for(int i = 0; i < count; i++)
-				sb.Append(indentationString);
-			sb.Append(s);
-
-			return sb.ToString();
-		}
-
-		/// <summary>
-		/// Returns the current string with leading HTML blank.
-		/// </summary>
-		public static string IndentWithNbsp(this string s, int count)
-		{
-			return Indent(s, count, "&nbsp;");
-		}
-
-		/// <summary>
-		/// Returns the current string with leading tabs.
-		/// </summary>
-		public static string IndentWithTabs(this string s, int count)
-		{
-			return Indent(s, count, "\t");
 		}
 
 		/// <summary>
@@ -172,6 +133,46 @@ namespace System
 		}
 
 		/// <summary>
+		/// Returns the current string with leading spaces.
+		/// </summary>
+		public static string Prepend(this string s, int count)
+		{
+			return Prepend(s, count, " ");
+		}
+
+		/// <summary>
+		/// Returns the current string with the leading string.
+		/// </summary>
+		public static string Prepend(this string s, int count, string value)
+		{
+			if(string.IsNullOrEmpty(value))
+				throw new ArgumentNullException("indentationString");
+
+			StringBuilder sb = new StringBuilder();
+			for(int i = 0; i < count; i++)
+				sb.Append(value);
+			sb.Append(s);
+
+			return sb.ToString();
+		}
+
+		/// <summary>
+		/// Returns the current string with leading HTML blank.
+		/// </summary>
+		public static string PrependWithNbsp(this string s, int count)
+		{
+			return Prepend(s, count, "&nbsp;");
+		}
+
+		/// <summary>
+		/// Returns the current string with leading tabs.
+		/// </summary>
+		public static string PrependWithTabs(this string s, int count)
+		{
+			return Prepend(s, count, "\t");
+		}
+
+		/// <summary>
 		/// Replaces variables (${PropertyName}) witin the current string object with
 		/// the property values of the specified object.
 		/// </summary>
@@ -185,6 +186,14 @@ namespace System
 				rs = rs.Replace("${" + pd.Name + "}", pd.GetValue(properties).ToString());
 
 			return rs;
+		}
+
+		/// <summary>
+		/// Replaces new line with BR sign.
+		/// </summary>
+		public static string ReplaceNewLineWithBR(this string s)
+		{
+			return s.Replace(Environment.NewLine, "<br />");
 		}
 
 		/// <summary>
@@ -234,6 +243,20 @@ namespace System
 				dic.Add(key, collection[key]);
 
 			return dic;
+		}
+
+		/// <summary>
+		/// Returns a MD5 representation of the current string object.
+		/// </summary>
+		public static string ToMD5(this string s)
+		{
+			byte[] bytes = (new MD5CryptoServiceProvider()).ComputeHash(Encoding.UTF8.GetBytes(s));
+
+			StringBuilder sb = new StringBuilder();
+			foreach(byte b in bytes)
+				sb.Append(b.ToString("x2").ToLower());
+
+			return sb.ToString();
 		}
 
 		/// <summary>

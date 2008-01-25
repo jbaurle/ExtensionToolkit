@@ -57,15 +57,6 @@ namespace ExtensionToolkit.TestProject
 		}
 
 		[TestMethod()]
-		public void IndentTest()
-		{
-			Assert.AreEqual(true, "ABC".Indent(2).StartsWith("  "));
-			Assert.AreEqual(true, "ABC".Indent(2, "#").StartsWith("##"));
-			Assert.AreEqual(true, "ABC".IndentWithNbsp(2).StartsWith("&nbsp;&nbsp;"));
-			Assert.AreEqual(true, "ABC".IndentWithTabs(2).StartsWith("\t\t"));
-		}
-
-		[TestMethod()]
 		public void IsInTest()
 		{
 			string l = " abc   , ABC ; XYZ";
@@ -114,10 +105,26 @@ namespace ExtensionToolkit.TestProject
 		}
 
 		[TestMethod()]
+		public void PrependTest()
+		{
+			Assert.AreEqual(true, "ABC".Prepend(2).StartsWith("  "));
+			Assert.AreEqual(true, "ABC".Prepend(2, "#").StartsWith("##"));
+			Assert.AreEqual(true, "ABC".PrependWithNbsp(2).StartsWith("&nbsp;&nbsp;"));
+			Assert.AreEqual(true, "ABC".PrependWithTabs(2).StartsWith("\t\t"));
+		}
+
+		[TestMethod()]
 		public void ReplaceTest()
 		{
 			string s = "Dear ${Name}, how are you? .... Date ${SignedOn}";
 			Assert.AreEqual(-1, s.Replace(new { Name = "Billy", SignedOn = DateTime.Now }).IndexOf("${"));
+		}
+
+		[TestMethod()]
+		public void ReplaceNewLineWithBRTest()
+		{
+			string s = " \r\n \r\n \r\n    -- \r\n\r\n   ";
+			Assert.AreEqual(false, s.ReplaceNewLineWithBR().Contains(Environment.NewLine));
 		}
 
 		[TestMethod()]
@@ -154,6 +161,13 @@ namespace ExtensionToolkit.TestProject
 		{
 			Dictionary<string, string> d = "first=ABC|second = XYZ| third = 3".ToDictionary();
 			Assert.AreEqual(3, d.Count);
+		}
+
+		[TestMethod()]
+		public void ToMD5Test()
+		{
+			string s = "ABCXYZ";
+			Assert.AreNotEqual(s.Length, s.ToMD5());
 		}
 
 		[TestMethod()]
