@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace ExtensionToolkit.TestProject
@@ -114,6 +115,14 @@ namespace ExtensionToolkit.TestProject
 
 		[TestMethod()]
 		[ExpectedException(typeof(ArgumentOutOfRangeException))]
+		public void ReplaceTest()
+		{
+			string s = "Dear ${Name}, how are you? .... Date ${SignedOn}";
+			s.Replace(new { Name = "Billy", SignedOn = DateTime.Now });
+		}
+
+		[TestMethod()]
+		[ExpectedException(typeof(ArgumentOutOfRangeException))]
 		public void RightTest()
 		{
 			string s = null;
@@ -139,6 +148,13 @@ namespace ExtensionToolkit.TestProject
 			string l = "ABC,XYZ,MIT";
 			string[] a = l.Split(",");
 			Assert.AreEqual(3, a.Length);
+		}
+
+		[TestMethod()]
+		public void ToDictionaryTest()
+		{
+			Dictionary<string, string> d = "first=ABC|second = XYZ| third = 3".ToDictionary();
+			Assert.AreEqual(3, d.Count);
 		}
 
 		[TestMethod()]

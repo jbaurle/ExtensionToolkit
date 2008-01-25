@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -170,6 +172,22 @@ namespace System
 		}
 
 		/// <summary>
+		/// Replaces variables (${PropertyName}) witin the current string object with
+		/// the property values of the specified object.
+		/// </summary>
+		public static string Replace(this string s, object properties)
+		{
+			if(properties == null)
+				return s;
+
+			string rs = s;
+			foreach(PropertyDescriptor pd in TypeDescriptor.GetProperties(properties))
+				rs = rs.Replace("${" + pd.Name + "}", pd.GetValue(properties).ToString());
+
+			return rs;
+		}
+
+		/// <summary>
 		/// Retrieves a substring (right-side) of the specified length from the current 
 		/// string object.
 		/// </summary>
@@ -193,11 +211,45 @@ namespace System
 			return s.Split(separator.ToCharArray());
 		}
 
+		/// <summary>
+		/// Returns a Dictionary instance created from the current string 
+		/// object if it contains a format like "firstkey=value1|second=Val2|...".
+		/// </summary>
+		public static Dictionary<string, string> ToDictionary(this string s)
+		{
+			return ToDictionary(s, "|");
+		}
+
+		/// <summary>
+		/// Returns a Dictionary instance created from the current string 
+		/// object if it contains a format like 
+		/// "firstkey=value1[separator]second=Val2[separator]...".
+		/// </summary>
+		public static Dictionary<string, string> ToDictionary(this string s, string separator)
+		{
+			Dictionary<string, string> dic = new Dictionary<string, string>();
+
+			NameValueCollection collection = ToNameValueCollection(s, separator);
+			foreach(string key in collection.AllKeys)
+				dic.Add(key, collection[key]);
+
+			return dic;
+		}
+
+		/// <summary>
+		/// Returns a NameValueCollection instance created from the current string 
+		/// object if it contains a format like "firstkey=value1|second=Val2|...".
+		/// </summary>
 		public static NameValueCollection ToNameValueCollection(this string s)
 		{
 			return ToNameValueCollection(s, "|");
 		}
 
+		/// <summary>
+		/// Returns a NameValueCollection instance created from the current string 
+		/// object if it contains a format like 
+		/// "firstkey=value1[separator]second=Val2[separator]...".
+		/// </summary>
 		public static NameValueCollection ToNameValueCollection(this string s, string separator)
 		{
 			if(string.IsNullOrEmpty(separator))
