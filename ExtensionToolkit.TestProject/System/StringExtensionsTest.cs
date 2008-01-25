@@ -114,11 +114,10 @@ namespace ExtensionToolkit.TestProject
 		}
 
 		[TestMethod()]
-		[ExpectedException(typeof(ArgumentOutOfRangeException))]
 		public void ReplaceTest()
 		{
 			string s = "Dear ${Name}, how are you? .... Date ${SignedOn}";
-			s.Replace(new { Name = "Billy", SignedOn = DateTime.Now });
+			Assert.AreEqual(-1, s.Replace(new { Name = "Billy", SignedOn = DateTime.Now }).IndexOf("${"));
 		}
 
 		[TestMethod()]
