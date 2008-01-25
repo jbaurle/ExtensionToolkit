@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.IO;
+using System.Text;
 using System.Xml;
 
 namespace System.Collections.Specialized
@@ -34,6 +35,31 @@ namespace System.Collections.Specialized
 			}
 
 			return false;
+		}
+
+		/// <summary>
+		/// Joins the key/value pairs into a string of the follwing format:
+		/// "Key1=Value1|Key2=Value2|...".
+		/// </summary>
+		public static string Join(this NameValueCollection collection)
+		{
+			return Join(collection, "|");
+		}
+
+		/// <summary>
+		/// Joins the key/value pairs into a string of the follwing format:
+		/// "Key1=Value1|Key2=Value2|...".
+		/// </summary>
+		public static string Join(this NameValueCollection collection, string separator)
+		{
+			if(string.IsNullOrEmpty(separator))
+				throw new ArgumentNullException("separator");
+
+			StringBuilder sb = new StringBuilder();
+			foreach(string key in collection.AllKeys)
+				sb.AppendFormat("{0}={1}{2}", key, (collection[key] ?? string.Empty).ToString(), separator);
+
+			return sb.ToString().TrimEnd(separator.ToCharArray());
 		}
 
 		/// <summary>
