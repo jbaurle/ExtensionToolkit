@@ -10,6 +10,11 @@ namespace System.Collections.Specialized
 	/// </summary>
 	public static class NameValueCollectionExtensons
 	{
+		// TODO:
+		//  - Add the following methods: 
+		//     -> Join (Key1=Value1|...)
+		//     -> ...
+
 		/// <summary>
 		/// Determines if the collection contains a specific key.
 		/// </summary>
