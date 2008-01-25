@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Specialized;
+using System.Text;
 using System.Text.RegularExpressions;
 
 namespace System
@@ -11,7 +13,7 @@ namespace System
 		// TODO:
 		//  - Add the following methods: 
 		//     -> IsStrongPassword (http://regexlib.com/REDetails.aspx?regexp_id=2062)
-		//     -> ToList, ToNameValueCollection, ToDictionary
+		//     -> ToList, ToDictionary
 		//     -> ...
 
 		/// <summary>
@@ -48,6 +50,46 @@ namespace System
 				throw new ArgumentNullException("defaultValue");
 
 			return string.IsNullOrEmpty(s) ? s : defaultValue;
+		}
+
+		/// <summary>
+		/// Returns the current string with leading spaces.
+		/// </summary>
+		public static string Indent(this string s, int count)
+		{
+			return Indent(s, count, " ");
+		}
+
+		/// <summary>
+		/// Returns the current string with the leading indentation string.
+		/// </summary>
+		public static string Indent(this string s, int count, string indentationString)
+		{
+			if(string.IsNullOrEmpty(indentationString))
+				throw new ArgumentNullException("indentationString");
+
+			StringBuilder sb = new StringBuilder();
+			for(int i = 0; i < count; i++)
+				sb.Append(indentationString);
+			sb.Append(s);
+
+			return sb.ToString();
+		}
+
+		/// <summary>
+		/// Returns the current string with leading HTML blank.
+		/// </summary>
+		public static string IndentWithNbsp(this string s, int count)
+		{
+			return Indent(s, count, "&nbsp;");
+		}
+
+		/// <summary>
+		/// Returns the current string with leading tabs.
+		/// </summary>
+		public static string IndentWithTabs(this string s, int count)
+		{
+			return Indent(s, count, "\t");
 		}
 
 		/// <summary>
@@ -149,6 +191,34 @@ namespace System
 		public static string[] Split(this string s, string separator)
 		{
 			return s.Split(separator.ToCharArray());
+		}
+
+		public static NameValueCollection ToNameValueCollection(this string s)
+		{
+			return ToNameValueCollection(s, "|");
+		}
+
+		public static NameValueCollection ToNameValueCollection(this string s, string separator)
+		{
+			if(string.IsNullOrEmpty(separator))
+				throw new ArgumentNullException("separator");
+
+			NameValueCollection collection = new NameValueCollection();
+
+			string[] nameValuePairs = s.Split(separator.ToCharArray());
+
+			foreach(string nvs in nameValuePairs)
+			{
+				string[] nvp = nvs.Split("=".ToCharArray());
+
+				string name = nvp[0].Trim();
+				string value = nvp.Length > 1 ? nvp[1].Trim() : string.Empty;
+
+				if(name.Length > 0)
+					collection.Add(name, value);
+			}
+
+			return collection;
 		}
 
 		/// <summary>

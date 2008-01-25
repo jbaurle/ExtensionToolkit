@@ -56,11 +56,12 @@ namespace ExtensionToolkit.TestProject
 		}
 
 		[TestMethod()]
-		public void IsEmailAddressTest()
+		public void IndentTest()
 		{
-			Assert.AreEqual(true, "billy@micisoft.de".IsEmailAddress());
-			Assert.AreEqual(false, "billy@micisoft".IsEmailAddress());
-			Assert.AreEqual(false, "billy micisoft.de".IsEmailAddress());
+			Assert.AreEqual(true, "ABC".Indent(2).StartsWith("  "));
+			Assert.AreEqual(true, "ABC".Indent(2, "#").StartsWith("##"));
+			Assert.AreEqual(true, "ABC".IndentWithNbsp(2).StartsWith("&nbsp;&nbsp;"));
+			Assert.AreEqual(true, "ABC".IndentWithTabs(2).StartsWith("\t\t"));
 		}
 
 		[TestMethod()]
@@ -141,7 +142,15 @@ namespace ExtensionToolkit.TestProject
 		}
 
 		[TestMethod()]
-		public void IsTrimTest()
+		public void ToNameValueCollectionTest()
+		{
+			Assert.AreEqual(3, "first=ABC|second = XYZ| third = 3".ToNameValueCollection().Count);
+			Assert.AreEqual(3, "first=ABC|second = XYZ| third = 3|".ToNameValueCollection().Count);
+			Assert.AreEqual(3, "first=ABC|second = XYZ| third = 3|=4".ToNameValueCollection().Count);
+		}
+
+		[TestMethod()]
+		public void TrimTest()
 		{
 			string s = "__ABC__";
 			Assert.AreEqual("ABC", s.Trim("__"));
