@@ -304,5 +304,36 @@ namespace System
 		{
 			return s.Trim(trimString.ToCharArray());
 		}
+
+        /// <summary>
+        /// Encode string into JavaScript string format that is encode \ and ' characters.
+        /// </summary>
+        public static string ToJsString(this string s)
+        {
+            if (s == null)
+            {
+                return "";
+            }
+
+            return s.Replace("'", "\\'").Replace("\r", "").Replace("\n", "\\r\\n");
+        }
+
+        /// <summary>
+        /// Encode string into JavaScript string format that is encode \ and specified quote characters.
+        /// </summary>
+        public static string ToJsString(this string s, char quote)
+        {
+            if (s == null)
+            {
+                return "";
+            }
+
+            if (quote != '"' && quote != '\'')
+            {
+                throw new ArgumentOutOfRangeException("quote is limited to ' or \"");
+            }
+
+            return s.Replace(quote.ToString(), String.Concat("\\", quote.ToString())).Replace("\r", "").Replace("\n", "\\r\\n");
+        }
 	}
 }
