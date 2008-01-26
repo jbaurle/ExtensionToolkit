@@ -183,6 +183,29 @@ namespace ExtensionToolkit.TestProject
 		{
 			string s = "__ABC__";
 			Assert.AreEqual("ABC", s.Trim("__"));
-		}
+        }
+
+        [TestMethod()]
+        [ExpectedException(typeof(ArgumentOutOfRangeException))]
+        public void ToJsStringTest()
+        {
+            string s1 = "This is Tim's test";
+            Assert.AreEqual(@"This is Tim\'s test", s1.ToJsString());
+            Assert.AreEqual(@"This is Tim\'s test", s1.ToJsString('\''));
+            Assert.AreEqual(@"This is Tim's test", s1.ToJsString('"'));
+
+            string s2 = "This is Tim\"s test";
+            Assert.AreEqual(@"This is Tim""s test", s2.ToJsString());
+            Assert.AreEqual(@"This is Tim""s test", s2.ToJsString('\''));
+            Assert.AreEqual(@"This is Tim\""s test", s2.ToJsString('"'));
+
+
+            Assert.AreEqual(@"This is Tim\""s test", s2.ToJsString('$'));
+
+            string s3 = null;
+            Assert.AreEqual(@"", s3.ToJsString());
+            Assert.AreEqual(@"", s3.ToJsString('\''));
+            Assert.AreEqual(@"", s3.ToJsString('"'));
+        }
 	}
 }
