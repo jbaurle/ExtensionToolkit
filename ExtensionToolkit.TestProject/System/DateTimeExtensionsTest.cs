@@ -58,5 +58,25 @@ namespace ExtensionToolkit.TestProject
             startdate.DateDiff("", enddate);
             startdate.DateDiff("abc", enddate);
         }
+
+        [TestMethod()]
+        public void ToTaiwanDateTime()
+        {
+            DateTime dt1 = new DateTime(2008, 1, 1);
+
+            DateTime dt2 = new DateTime(97, 1, 1);
+
+            Assert.AreEqual(dt2, dt1.ToTaiwanDateTime());
+        }
+
+        [TestMethod()]
+        public void ToTaiwanLunisolarDateTime()
+        {
+            DateTime dt1 = new DateTime(2008, 1, 26);
+
+            DateTime dt2 = new DateTime(96, 12, 19);
+
+            Assert.AreEqual(dt2, dt1.ToTaiwanLunisolarDateTime());
+        }
 	}
 }

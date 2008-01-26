@@ -78,6 +78,32 @@ namespace System
 			}
 
 			return result;
-		}
+        }
+
+        /// <summary>
+        /// Convert the DateTime object to TaiwanCalendar DateTime format.
+        /// For example: 2008/1/1 will become 97/1/1
+        /// </summary>
+        public static DateTime ToTaiwanDateTime(this DateTime d)
+        {
+            System.Globalization.TaiwanCalendar tc = new System.Globalization.TaiwanCalendar();
+
+            DateTime result = new DateTime(tc.GetYear(d), tc.GetMonth(d), tc.GetDayOfMonth(d), d.Hour, d.Minute, d.Second, d.Millisecond);
+
+            return result;
+        }
+
+        /// <summary>
+        /// Convert the DateTime object to TaiwanLunisolarCalendar's DateTime format.
+        /// For example: 2008/1/26 will become 96/12/19
+        /// </summary>
+        public static DateTime ToTaiwanLunisolarDateTime(this DateTime d)
+        {
+            System.Globalization.TaiwanLunisolarCalendar tlc = new System.Globalization.TaiwanLunisolarCalendar();
+
+            DateTime result = new DateTime(tlc.GetYear(d), tlc.GetMonth(d), tlc.GetDayOfMonth(d), d.Hour, d.Minute, d.Second, d.Millisecond);
+
+            return result;
+        }
 	}
 }
