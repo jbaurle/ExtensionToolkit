@@ -164,6 +164,27 @@ namespace ExtensionToolkit.TestProject
 		}
 
 		[TestMethod()]
+		[ExpectedException(typeof(FormatException))]
+		public void ToInt32Test()
+		{
+			string s = "32";
+			Assert.AreEqual(32, s.ToInt32());
+			s = "3 2";
+			Assert.AreEqual(23, s.ToInt32(23));
+			s = "3 2";
+			Assert.AreEqual(32, s.ToInt32());
+		}
+
+		[TestMethod()]
+		public void ToListTest()
+		{
+			string s = "AB|C|X|YZ";
+			Assert.AreNotEqual(4, s.ToList());
+			s = "AB#C#X#Y#Z";
+			Assert.AreNotEqual(5, s.ToList("#"));
+		}
+
+		[TestMethod()]
 		public void ToMD5Test()
 		{
 			string s = "ABCXYZ";

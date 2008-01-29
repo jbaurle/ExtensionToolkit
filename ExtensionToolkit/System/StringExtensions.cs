@@ -16,7 +16,7 @@ namespace System
 		// TODO:
 		//  - Add the following methods: 
 		//     -> IsStrongPassword (http://regexlib.com/REDetails.aspx?regexp_id=2062)
-		//     -> ToList, ToDictionary
+		//     -> ToList
 		//     -> ...
 
 		/// <summary>
@@ -243,6 +243,46 @@ namespace System
 				dic.Add(key, collection[key]);
 
 			return dic;
+		}
+
+		/// <summary>
+		/// Converts the current string object into an integer object.
+		/// </summary>
+		public static int ToInt32(this string s)
+		{
+			return Int32.Parse(s);
+		}
+
+		/// <summary>
+		/// Converts the current string object into an integer object or returns 
+		/// the defaultValue.
+		/// </summary>
+		public static int ToInt32(this string s, int defaultValue)
+		{
+			int value;
+
+			return Int32.TryParse(s, out value) ? value : defaultValue;
+		}
+
+		/// <summary>
+		/// Returns a List(string) instance from the current |-separated string.
+		/// </summary>
+		public static List<string> ToList(this string s)
+		{
+			return ToList(s, "|");
+		}
+
+		/// <summary>
+		/// Returns a List(string) instance from the current string.
+		/// </summary>
+		public static List<string> ToList(this string s, string separator)
+		{
+			List<string> list = new List<string>();
+
+			foreach(string e in s.Split(separator.ToCharArray()))
+				list.Add(e.Trim());
+
+			return list;
 		}
 
 		/// <summary>
