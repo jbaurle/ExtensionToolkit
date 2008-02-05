@@ -21,26 +21,26 @@ namespace ExtensionToolkit.TestProject
 			Assert.AreEqual("Name", dt.Columns[1].ColumnName);
 		}
 
-        [TestMethod()]
-        public void PrettyPrintTest()
-        {
-            IList<string> list = new List<string>();
-            list.Add("one");
-            list.Add("two");
-            string pretty = list.PrettyPrint<string>();
-            string expected = "[one, two]";
-            Assert.AreEqual(expected, pretty); 
-        }
+		[TestMethod()]
+		public void PrettyPrintTest()
+		{
+			IList<string> list = new List<string>();
+			list.Add("one");
+			list.Add("two");
+			string pretty = list.PrettyPrint<string>();
+			string expected = "[one, two]";
+			Assert.AreEqual(expected, pretty);
+		}
 
-        [TestMethod()]
-        public void ConvertToTest()
-        {
+		[TestMethod()]
+		public void ConvertToTest()
+		{
 
-            List<object> list = new List<object>();
-            list.Add("one");
-            list.Add("two");            
-            List<string> strList = (List<string>)list.ConvertTo(typeof(string));
-            Assert.IsInstanceOfType(strList, typeof(List<string>));                       
-        }
-	}    
+			List<object> list = new List<object>();
+			list.Add("one");
+			list.Add("two");
+			List<string> strList = (List<string>)list.ConvertTo(typeof(string));
+			Assert.IsInstanceOfType(strList, typeof(List<string>));
+		}
+	}
 }
