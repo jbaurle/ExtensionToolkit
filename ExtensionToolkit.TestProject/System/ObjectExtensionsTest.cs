@@ -34,7 +34,7 @@ namespace ExtensionToolkit.TestProject
 		public void ToValue()
 		{
 			string s = "Test string";
-			Assert.AreEqual("Test string", ((object)s).ToValue());
+			Assert.AreEqual("\"Test string\"", ((object)s).ToValue());
 
 			int i = 3999;
 			Assert.AreEqual("3999", ((object)i).ToValue());
@@ -45,8 +45,7 @@ namespace ExtensionToolkit.TestProject
 			object n = null;
 			Assert.AreEqual("null", n.ToValue());
 		}
-
-
+		
 		[TestMethod()]
 		public void ToString_Test()
 		{
