@@ -46,21 +46,21 @@ namespace System
 		/// <returns>string</returns>
 		public static string ToValue(this object o)
 		{
-			if (o == null)
+			if(o == null)
 			{
 				return "null";
 			}
-			else if (o is DateTime)
+			else if(o is DateTime)
 			{
 				return ((DateTime)o).ToString("yyyy-MM-dd HH:mm:ss");
 			}
-			else if (o is ValueType || o is string)
+			else if(o is ValueType || o is string)
 			{
-				if (o is char)
+				if(o is char)
 				{
 					return "'" + o.ToString() + "'";
 				}
-				else if (o is string)
+				else if(o is string)
 				{
 					return "\"" + o.ToString() + "\"";
 				}
@@ -69,17 +69,17 @@ namespace System
 					return o.ToString();
 				}
 			}
-			else if (o is System.Collections.DictionaryEntry) // Hashtable
+			else if(o is System.Collections.DictionaryEntry) // Hashtable
 			{
 				return ((System.Collections.DictionaryEntry)o).Key.ToValue() + "=" + ((System.Collections.DictionaryEntry)o).Value.ToValue();
 			}
-			else if (o is IEnumerable)
+			else if(o is IEnumerable)
 			{
 				StringBuilder sb = new StringBuilder();
 
-				foreach (var item in (IEnumerable)o)
+				foreach(var item in (IEnumerable)o)
 				{
-					if (o is Hashtable)
+					if(o is Hashtable)
 					{
 						DictionaryEntry ht = (DictionaryEntry)item;
 
@@ -90,7 +90,7 @@ namespace System
 							ht.Value.ToValue() +
 							"],");
 					}
-					else if (o is NameValueCollection)
+					else if(o is NameValueCollection)
 					{
 						sb.Append(
 							"\"" + item.ToString() + "\"" +
@@ -126,24 +126,24 @@ namespace System
 		}
 
 		/// <summary>
-		/// Get the all the values inside object in VERY detail.  Useful for debugging purpose.
+		/// Get the all the values inside object in VERY detail. Useful for debugging purpose.
 		/// </summary>
 		private static string ToString(this object o, string prefix, int depth)
 		{
 			System.Text.StringBuilder sb = new System.Text.StringBuilder();
 
-			if (o == null || o is ValueType || o is string)
+			if(o == null || o is ValueType || o is string)
 			{
 				sb.Append(prefix);
 				sb.Append(" = ");
 				sb.Append(o.ToValue());
 				sb.AppendLine();
 			}
-			else if (o is IEnumerable)
+			else if(o is IEnumerable)
 			{
-				foreach (var item in (IEnumerable)o)
+				foreach(var item in (IEnumerable)o)
 				{
-					if (o is Hashtable)
+					if(o is Hashtable)
 					{
 						DictionaryEntry ht = (DictionaryEntry)item;
 
@@ -154,7 +154,7 @@ namespace System
 							"] = " +
 							ht.Value.ToValue());
 					}
-					else if (o is NameValueCollection)
+					else if(o is NameValueCollection)
 					{
 						sb.AppendLine(
 							prefix +
@@ -172,19 +172,19 @@ namespace System
 			{
 				MemberInfo[] members = o.GetType().GetMembers(BindingFlags.Public | BindingFlags.Instance);
 
-				foreach (MemberInfo mi in members)
+				foreach(MemberInfo mi in members)
 				{
 					FieldInfo fi = mi as FieldInfo;
 					PropertyInfo pi = mi as PropertyInfo;
-					if (fi != null || pi != null)
+					if(fi != null || pi != null)
 					{
 						sb.Append(prefix + "." + mi.Name + " = ");
 
 						Type t = (fi != null) ? fi.FieldType : pi.PropertyType;
 
-						if (t.IsValueType || t == typeof(string))
+						if(t.IsValueType || t == typeof(string))
 						{
-							if (fi != null)
+							if(fi != null)
 							{
 								sb.Append(fi.GetValue(o).ToValue());
 							}
@@ -195,7 +195,7 @@ namespace System
 						}
 						else
 						{
-							if (typeof(IEnumerable).IsAssignableFrom(t))
+							if(typeof(IEnumerable).IsAssignableFrom(t))
 							{
 								sb.Append(pi.GetValue(o, null).ToValue());
 							}
@@ -212,12 +212,12 @@ namespace System
 				}
 			}
 
-			if (depth > 0)
+			if(depth > 0)
 			{
 				StringBuilder sb1 = new StringBuilder();
-				foreach (string line in sb.ToString().Split(Environment.NewLine))
+				foreach(string line in sb.ToString().Split(Environment.NewLine))
 				{
-					if (!String.IsNullOrEmpty(line))
+					if(!String.IsNullOrEmpty(line))
 					{
 						sb1.AppendLine(line.PrependWithTabs(1));
 					}

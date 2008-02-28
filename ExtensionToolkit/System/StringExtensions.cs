@@ -377,22 +377,22 @@ namespace System
 		}
 
 		/// <summary>
-		/// Repeat string n times
+		/// Repeat string n times.
 		/// </summary>
 		public static string Repeat(this string s, int n)
 		{
-			if (s == null || n == 0)
+			if(s == null || n == 0)
 			{
 				return "";
 			}
 
-			if (n < 0)
+			if(n < 0)
 			{
 				throw new ArgumentOutOfRangeException("The n must be equal or larger then 0.");
 			}
 
 			StringBuilder sb = new StringBuilder();
-			for (int i = 0; i < n; i++)
+			for(int i = 0; i < n; i++)
 			{
 				sb.Append(s);
 			}
