@@ -123,7 +123,7 @@ namespace ExtensionToolkit.TestProject
 		[TestMethod()]
 		public void ReplaceNewLineWithBRTest()
 		{
-			string s = " \r\n \r\n \r\n    -- \r\n\r\n   ";
+			string s = " \r\n \r\n \r\n	-- \r\n\r\n   ";
 			Assert.AreEqual(false, s.ReplaceNewLineWithBR().Contains(Environment.NewLine));
 		}
 
@@ -227,6 +227,21 @@ namespace ExtensionToolkit.TestProject
 			Assert.AreEqual(@"", s3.ToJsString());
 			Assert.AreEqual(@"", s3.ToJsString('\''));
 			Assert.AreEqual(@"", s3.ToJsString('"'));
+		}
+
+		[TestMethod()]
+		[ExpectedException(typeof(ArgumentOutOfRangeException))]
+		public void RepeatTest()
+		{
+			Assert.AreEqual(@"aaaaa", "a".Repeat(5));
+
+			Assert.AreEqual(@"==========", "=".Repeat(10));
+
+			Assert.AreEqual(@"==========", "=====".Repeat(2));
+
+			Assert.AreEqual("", "=====".Repeat(0));
+
+			Assert.AreEqual("", "=====".Repeat(-1));
 		}
 	}
 }
