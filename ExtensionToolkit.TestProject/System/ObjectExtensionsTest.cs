@@ -1,8 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections;
+using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Linq;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace ExtensionToolkit.TestProject
 {
@@ -45,7 +46,7 @@ namespace ExtensionToolkit.TestProject
 			object n = null;
 			Assert.AreEqual("null", n.ToValue());
 		}
-		
+
 		[TestMethod()]
 		public void ToString_Test()
 		{
@@ -125,5 +126,49 @@ namespace ExtensionToolkit.TestProject
 		}
 
 
+		[TestMethod()]
+		public void ToSingleItemEnumerable()
+		{
+			object o = new object();
+
+			var oEnumerable = o.ToSingleItemEnumerable();
+
+			Assert.IsInstanceOfType(oEnumerable, typeof(IEnumerable<object>));
+			Assert.AreEqual(1, oEnumerable.Count());
+		}
+
+		[TestMethod()]
+		public void ToSingleItemList()
+		{
+			object o = new object();
+
+			var oList = o.ToSingleItemList();
+
+			Assert.IsInstanceOfType(oList, typeof(IList<object>));
+			Assert.AreEqual(1, oList.Count());
+		}
+
+		[TestMethod()]
+		public void ToSingleItemArray()
+		{
+			object o = new object();
+
+			var oArray = o.ToSingleItemArray();
+
+			Assert.IsInstanceOfType(oArray, typeof(object[]));
+			Assert.AreEqual(1, oArray.Count());
+		}
+
+
+		[TestMethod()]
+		public void SerializedDeepCopy()
+		{
+			List<string> testObject = new List<string>() { "a", "b", "c", "defghij", };
+
+			var newObject = testObject.SerializedDeepCopy();
+			Assert.IsInstanceOfType(newObject, typeof(List<string>));
+			Assert.AreNotEqual(testObject.GetHashCode(), newObject.GetHashCode());
+			Assert.IsFalse(testObject.Equals(newObject));
+		}
 	}
 }
