@@ -12,6 +12,7 @@ namespace System
 		/// Calculate the DateTime different with the current DateTime object.
 		/// datepart is referenced from T-SQL DATEDIFF function ( http://technet.microsoft.com/zh-tw/library/ms189794.aspx )
 		/// </summary>
+		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity")]
 		public static double DateDiff(this DateTime startdate, string datepart, DateTime enddate)
 		{
 			double result = 0;
