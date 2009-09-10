@@ -30,10 +30,9 @@ namespace ExtensionToolkit.TestProject.System
 		public void TruncatePrecision_Negative()
 		{
 			decimal myNumber = 1.1234567M;
-
 			decimal temp = myNumber.TruncatePrecision(-1);
+
 			Assert.Fail("This should have thrown an exception");
 		}
-
 	}
 }
